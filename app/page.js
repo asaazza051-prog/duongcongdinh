@@ -161,10 +161,7 @@ export default function Home() {
     useEffect(() => {
         const fn = () => setScrolled(window.scrollY > 80);
         window.addEventListener("scroll", fn);
-        const storedCount = localStorage.getItem("visitors");
-        const count = storedCount ? parseInt(storedCount) : 1204;
-        localStorage.setItem("visitors", count + 1);
-        setVisitorCount(count + 1);
+
         let keys = "";
         const handleKeys = (e) => {
             keys += e.key;
@@ -260,9 +257,6 @@ export default function Home() {
             {/* Hero */}
             <section className="min-h-[110svh] flex flex-col lg:flex-row items-center justify-center relative z-10 px-8 pt-32 lg:pt-20 max-w-[1600px] mx-auto gap-16">
                 <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
-                    <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.5 }}>
-                        <div style={S.badge}><span style={S.dot} />Nodes Detected: {visitorCount || "Scanning..."}</div>
-                    </motion.div>
                     <motion.h1
                         className="text-[clamp(3rem,8vw,6.5rem)] font-[1000] tracking-tighter leading-[0.95] mb-8"
                         initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}>
