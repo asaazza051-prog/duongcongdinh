@@ -205,16 +205,29 @@ export default function Home() {
             setPayloadLogs(prev => [...prev, logs[i]]);
         }
 
+        const svcId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+        const tplId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+        const pubKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+        if (!svcId || !tplId || !pubKey) {
+            showToast("error", "❌ Lỗi: Thiếu API key. Kiểm tra biến môi trường!");
+            setSending(false); setPayloadLogs([]);
+            return;
+        }
+
         try {
             await emailjs.send(
-                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+                svcId, tplId,
                 { from_name: form.name, from_email: form.email, message: form.message, to_name: "Dương Định" },
-                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+                pubKey
             );
             showToast("success", "✅ Payload delivered successfully!");
             setForm({ name: "", email: "", message: "" });
-        } catch { showToast("error", "❌ Connection timed out."); }
+        } catch (err) {
+            console.error("EmailJS Error:", err);
+            const msg = err?.text || err?.message || JSON.stringify(err);
+            showToast("error", `❌ Lỗi: ${msg}`);
+        }
         finally { setSending(false); setPayloadLogs([]); }
     };
 
