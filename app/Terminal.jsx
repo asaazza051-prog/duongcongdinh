@@ -99,7 +99,7 @@ export default function Terminal({ isOpen, onClose, setTheme, currentTheme }) {
                     initial={{ opacity: 0, scale: 0.8, y: 50 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.8, y: 50 }}
-                    className="fixed bottom-6 right-6 z-[200] w-[350px] md:w-[450px] glass-card rounded-xl overflow-hidden border border-[var(--primary)]/30 shadow-[0_0_40px_rgba(0,255,159,0.15)]"
+                    className="fixed bottom-2 left-2 right-2 md:left-auto md:bottom-6 md:right-6 z-[200] md:w-[450px] glass-card rounded-xl overflow-hidden border border-[var(--primary)]/30 shadow-[0_0_40px_rgba(0,255,159,0.15)]"
                 >
                     <div className="bg-[#0a0a20]/90 px-4 py-2 flex items-center justify-between border-b border-[var(--primary)]/20">
                         <div className="flex gap-1.5">
@@ -110,7 +110,7 @@ export default function Terminal({ isOpen, onClose, setTheme, currentTheme }) {
                         <div className="text-[9px] font-mono text-[var(--primary)]/60 tracking-[0.3em] uppercase">sh: duongdinh</div>
                         <button onClick={onClose} className="text-white/30 hover:text-white transition-colors text-[10px] font-mono">_CLOSE</button>
                     </div>
-                    <div ref={scrollRef} className="h-[280px] overflow-y-auto p-5 font-mono text-[11px] space-y-1.5 custom-scrollbar bg-black/40">
+                    <div ref={scrollRef} className="h-[280px] md:h-[300px] max-h-[50vh] overflow-y-auto p-5 font-mono text-[11px] space-y-1.5 custom-scrollbar bg-black/40">
                         {history.map((item, i) => (
                             <div key={i} className={`whitespace-pre-wrap leading-relaxed ${item.type === "error" ? "text-red-500" :
                                 item.type === "success" ? "text-[var(--primary)]" :

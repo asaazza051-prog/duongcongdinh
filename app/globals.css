@@ -81,8 +81,8 @@ body {
 
 .parallax-grid {
     background-image: 
-        linear-gradient(rgba(0, 255, 159, 0.08) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 159, 0.08) 1px, transparent 1px);
+        linear-gradient(rgba(0, 255, 159, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 159, 0.03) 1px, transparent 1px);
     background-size: 80px 80px;
     position: fixed;
     inset: 0;
@@ -90,17 +90,7 @@ body {
     z-index: 0;
 }
 
-.cyber-scanline {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 2px, 3px 100%;
-    pointer-events: none;
-    z-index: 100;
-}
+/* Scanline removed — was causing grainy/blurry overlay on the entire page */
 
 .text-glitch:hover {
     animation: glitch-anim 0.3s infinite linear alternate-reverse;

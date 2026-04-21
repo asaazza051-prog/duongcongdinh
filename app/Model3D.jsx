@@ -43,7 +43,7 @@ function CartoonCharacter({ theme }) {
     });
 
     return (
-        <group ref={group} onClick={handleClick} onPointerOver={() => document.body.style.cursor = 'pointer'} onPointerOut={() => document.body.style.cursor = 'auto'}>
+        <group ref={group} scale={typeof window !== 'undefined' && window.innerWidth < 768 ? 1.4 : 1} onClick={handleClick} onPointerOver={() => document.body.style.cursor = 'pointer'} onPointerOut={() => document.body.style.cursor = 'auto'}>
             <mesh castShadow receiveShadow>
                 <boxGeometry args={[2.2, 1.8, 1.8]} />
                 <meshStandardMaterial color={colors.primary} roughness={0.2} metalness={0.8} />
@@ -78,7 +78,7 @@ function CartoonCharacter({ theme }) {
 
 export default function Model3D({ theme }) {
     return (
-        <div className="w-full h-full min-h-[400px] md:min-h-[500px] relative z-20">
+        <div className="w-full h-full relative z-20" style={{ minHeight: "400px" }}>
             <Canvas shadows camera={{ position: [0, 0, 6], fov: 40 }}>
                 <ambientLight intensity={0.4} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} castShadow />

@@ -14,7 +14,7 @@ const S = {
         animation: `float 20s ease-in-out ${delay}s infinite`,
     }),
     logo: {
-        fontSize: "1.7rem", fontWeight: 900, letterSpacing: "-0.03em",
+        fontSize: "clamp(1.4rem, 5vw, 1.7rem)", fontWeight: 900, letterSpacing: "-0.03em",
         background: "linear-gradient(135deg, var(--primary), var(--secondary))",
         WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
         transition: "all 0.3s",
@@ -72,7 +72,7 @@ const S = {
     },
     card: {
         background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 32,
-        padding: "50px 32px", backdropFilter: "blur(30px)", transition: "all 0.5s",
+        padding: "clamp(32px, 8vw, 50px) clamp(20px, 5vw, 32px)", backdropFilter: "blur(30px)", transition: "all 0.5s",
         textAlign: "center",
     },
     hobbyIcon: {
@@ -81,7 +81,7 @@ const S = {
         border: "1px solid rgba(255,255,255,0.1)", transition: "all 0.4s",
     },
     infoCard: {
-        display: "flex", alignItems: "center", gap: 20, padding: 24, borderRadius: 20,
+        display: "flex", alignItems: "center", gap: 20, padding: "clamp(16px, 4vw, 24px)", borderRadius: 20,
         border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.03)", transition: "all 0.3s",
     },
     infoIcon: {
@@ -89,12 +89,12 @@ const S = {
         fontSize: 24, background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", flexShrink: 0,
     },
     input: {
-        width: "100%", padding: "18px 24px", borderRadius: 16, border: "1px solid rgba(255,255,255,0.1)",
+        width: "100%", padding: "16px 20px", borderRadius: 16, border: "1px solid rgba(255,255,255,0.1)",
         background: "rgba(255,255,255,0.04)", color: "#f0f0ff", fontFamily: "'Inter',sans-serif",
         fontSize: "1rem", outline: "none", transition: "all 0.3s",
     },
     textarea: {
-        width: "100%", padding: "18px 24px", borderRadius: 16, border: "1px solid rgba(255,255,255,0.1)",
+        width: "100%", padding: "16px 20px", borderRadius: 16, border: "1px solid rgba(255,255,255,0.1)",
         background: "rgba(255,255,255,0.04)", color: "#f0f0ff", fontFamily: "'Inter',sans-serif",
         fontSize: "1rem", outline: "none", transition: "all 0.3s", minHeight: 180, resize: "vertical",
     },
@@ -105,7 +105,7 @@ function ASection({ children, id }) {
     const ref = useRef(null);
     const inView = useInView(ref, { once: true, margin: "-150px" });
     return (
-        <motion.section ref={ref} id={id} className="relative z-10 max-w-7xl mx-auto pt-40 md:pt-60 px-8"
+        <motion.section ref={ref} id={id} className="relative z-10 max-w-7xl mx-auto pt-32 md:pt-60 px-6 md:px-8"
             initial="hidden" animate={inView ? "visible" : "hidden"}
             variants={{
                 hidden: { opacity: 0, y: 30 },
@@ -165,7 +165,10 @@ export default function Home() {
         let keys = "";
         const handleKeys = (e) => {
             keys += e.key;
-            if (keys.endsWith("help")) setTerminalOpen(true);
+            if (keys.endsWith("help")) {
+                setTerminalOpen(true);
+                setMenuOpen(false);
+            }
             if (keys.length > 20) keys = keys.substring(10);
         };
         window.addEventListener("keydown", handleKeys);
@@ -213,13 +216,12 @@ export default function Home() {
             {/* BG Elements */}
             <div className="fixed inset-0 z-0 pointer-events-none opacity-25" style={{ background: "radial-gradient(circle at 50% 50%, #101025 0%, #030308 100%)" }} />
             <motion.div style={{ y: gridY }} className="parallax-grid opacity-40" />
-            <div className="cyber-scanline" />
             <div style={S.orb("70vw", "70vw", "-25%", undefined, undefined, "-15%", "var(--primary)", 0)} />
             <div style={S.orb("60vw", "60vw", undefined, "-20%", "-20%", undefined, "var(--secondary)", -10)} />
 
             {/* Navbar */}
             <motion.nav
-                className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-8 py-6 md:px-12 transition-all duration-500 ${scrolled ? "bg-[#030308]/90 backdrop-blur-2xl border-b border-white/5 py-4" : "bg-transparent"}`}
+                className={`fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-6 py-6 md:px-12 transition-all duration-500 ${scrolled ? "bg-[#030308]/90 backdrop-blur-2xl border-b border-white/5 py-4" : "bg-transparent"}`}
                 initial={{ y: -100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.8, ease: "circOut" }}>
                 <a href="#" style={S.logo} className="text-glitch">Duong Dinh</a>
 
@@ -255,10 +257,13 @@ export default function Home() {
             </AnimatePresence>
 
             {/* Hero */}
-            <section className="min-h-[110svh] flex flex-col lg:flex-row items-center justify-center relative z-10 px-8 pt-32 lg:pt-20 max-w-[1600px] mx-auto gap-16">
-                <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
+            <section
+                className="min-h-[100svh] flex flex-col lg:flex-row items-center justify-start lg:justify-center relative z-10 px-6 max-w-[1600px] mx-auto gap-12"
+                style={{ paddingTop: "clamp(160px, 25vh, 220px)" }}
+            >
+                <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left w-full mt-4">
                     <motion.h1
-                        className="text-[clamp(3rem,8vw,6.5rem)] font-[1000] tracking-tighter leading-[0.95] mb-8"
+                        className="text-[clamp(2rem,10vw,6.5rem)] font-[1000] tracking-tighter leading-[0.95] mb-8"
                         initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}>
                         Xin chào bạn, tôi là <br /><span style={S.gradText} className="text-glitch">Dương Định</span>
                     </motion.h1>
@@ -269,7 +274,7 @@ export default function Home() {
                     </motion.p>
                     <motion.div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto mb-12" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1 }}>
                         <a href="#contact" style={S.btnPrimary} className="hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_var(--glow)]">💬 Liên hệ ngay</a>
-                        <button onClick={() => setTerminalOpen(true)} style={S.btnOutline} className="hover:bg-white/10 active:scale-95">⌨️ Open Terminal</button>
+                        <button onClick={() => { setTerminalOpen(true); setMenuOpen(false); }} style={S.btnOutline} className="hover:bg-white/10 active:scale-95">⌨️ Open Terminal</button>
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="flex gap-6">
@@ -280,7 +285,8 @@ export default function Home() {
                 </div>
 
                 <motion.div
-                    className="flex-1 w-full h-[50vh] lg:h-[90vh] relative"
+                    className="flex-1 w-full relative"
+                    style={{ height: "clamp(400px, 50vh, 600px)", minHeight: "400px" }}
                     initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: "backOut" }}
                 >
                     <Model3D theme={theme} />
@@ -289,7 +295,7 @@ export default function Home() {
 
             <ASection id="about">
                 <motion.div variants={fadeUp}><span className="inline-flex items-center gap-3 text-sm font-black uppercase tracking-[0.4em] text-[var(--secondary)] mb-6"><span style={S.labelBar} />Identity</span></motion.div>
-                <motion.h2 variants={fadeUp} className="text-5xl md:text-8xl font-black mb-10 tracking-tighter">About Me</motion.h2>
+                <motion.h2 variants={fadeUp} className="text-4xl md:text-8xl font-black mb-10 tracking-tighter">About Me</motion.h2>
                 <motion.div variants={fadeUp}><div style={S.divider} /></motion.div>
                 <motion.p variants={fadeUp} className="text-[#8888aa] text-xl md:text-2xl max-w-4xl leading-relaxed mt-12 font-medium">
                     Tôi là <strong className="text-[var(--primary)] font-bold">Duong Dinh</strong> — một người đam mê Mật mã học và An toàn thông tin.
@@ -299,7 +305,7 @@ export default function Home() {
 
             <ASection id="skills">
                 <motion.div variants={fadeUp}><span className="inline-flex items-center gap-3 text-sm font-black uppercase tracking-[0.4em] text-[var(--secondary)] mb-6"><span style={S.labelBar} />Expertise</span></motion.div>
-                <motion.h2 variants={fadeUp} className="text-5xl md:text-8xl font-black mb-10 tracking-tighter">Tech Stack</motion.h2>
+                <motion.h2 variants={fadeUp} className="text-4xl md:text-8xl font-black mb-10 tracking-tighter">Tech Stack</motion.h2>
                 <motion.div variants={fadeUp} className="flex flex-wrap gap-5 mt-16">
                     {["Cyber Security", "SOC Analyst", "Pentetration Testing", "Network Security", "Linux", "Python", "JavaScript", "Wireshark", "Burp Suite", "SIEM", "OSINT", "Malware Analysis"].map(s => <motion.span key={s} style={S.skillTag} className="glass-card hover:border-[var(--primary)] hover:scale-110 cursor-pointer">{s}</motion.span>)}
                 </motion.div>
@@ -307,7 +313,7 @@ export default function Home() {
 
             <ASection id="hobbies">
                 <motion.div variants={fadeUp}><span className="inline-flex items-center gap-3 text-sm font-black uppercase tracking-[0.4em] text-[var(--secondary)] mb-6"><span style={S.labelBar} />Culture</span></motion.div>
-                <motion.h2 variants={fadeUp} className="text-5xl md:text-8xl font-black mb-10 tracking-tighter">Hobbies</motion.h2>
+                <motion.h2 variants={fadeUp} className="text-4xl md:text-8xl font-black mb-10 tracking-tighter">Hobbies</motion.h2>
                 <motion.div variants={fadeUp} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-20">
                     {[
                         { icon: "🛡️", title: "Security", desc: "Nghiên cứu malware và các phương thức tấn công." },
@@ -326,7 +332,7 @@ export default function Home() {
 
             <ASection id="contact">
                 <motion.div variants={fadeUp}><span className="inline-flex items-center gap-3 text-sm font-black uppercase tracking-[0.4em] text-[var(--secondary)] mb-6"><span style={S.labelBar} />Protocol</span></motion.div>
-                <motion.h2 variants={fadeUp} className="text-5xl md:text-8xl font-black mb-10 tracking-tighter">Contact</motion.h2>
+                <motion.h2 variants={fadeUp} className="text-4xl md:text-8xl font-black mb-10 tracking-tighter">Contact</motion.h2>
                 <motion.div variants={fadeUp} className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-16 mt-20">
                     <div className="flex flex-col gap-8">
                         {[
