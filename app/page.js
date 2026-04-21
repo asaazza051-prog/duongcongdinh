@@ -65,6 +65,15 @@ const S = {
         transition: "all 0.4s", boxShadow: "0 20px 40px -10px var(--glow)",
         display: "flex", alignItems: "center", justifyContent: "center", gap: 12,
     },
+    toast: (type) => ({
+        position: "fixed", bottom: 32, right: 32, zIndex: 9999,
+        padding: "18px 28px", borderRadius: 18, fontSize: "0.95rem", fontWeight: 700,
+        background: type === "success" ? "rgba(0,255,159,0.12)" : "rgba(239,68,68,0.12)",
+        border: `1px solid ${type === "success" ? "rgba(0,255,159,0.4)" : "rgba(239,68,68,0.4)"}`,
+        color: type === "success" ? "#00ff9f" : "#ef4444",
+        backdropFilter: "blur(20px)", boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+        maxWidth: 360,
+    }),
     skillTag: {
         padding: "12px 24px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.1)",
         background: "rgba(255,255,255,0.05)", color: "#e2e8f0", fontSize: "0.95rem", fontWeight: 600,
