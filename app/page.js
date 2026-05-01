@@ -279,23 +279,23 @@ export default function Home() {
 
             {/* Hero */}
             <section
-                className="min-h-[100svh] flex flex-col lg:flex-row items-center justify-start lg:justify-center relative z-10 px-6 max-w-[1600px] mx-auto gap-12"
-                style={{ paddingTop: "clamp(160px, 25vh, 220px)" }}
+                className="min-h-[100svh] flex flex-col lg:flex-row items-center justify-start lg:justify-center relative z-10 px-6 max-w-[1600px] mx-auto gap-8 lg:gap-12"
+                style={{ paddingTop: "clamp(120px, 15vh, 220px)" }}
             >
                 <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left w-full mt-4">
                     <motion.h1
-                        className="text-[clamp(2rem,10vw,6.5rem)] font-[1000] tracking-tighter leading-[0.95] mb-8"
+                        className="text-[clamp(2.5rem,8vw,6.5rem)] font-[1000] tracking-tighter leading-[1.1] md:leading-[0.95] mb-6 md:mb-8"
                         initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}>
-                        Xin chào bạn, tôi là <br /><span style={S.gradText} className="text-glitch">Dương Định</span>
+                        Xin chào bạn, tôi là <br /><span style={S.gradText} className="text-glitch text-[0.85em] md:text-[1em]">Dương Định</span>
                     </motion.h1>
                     <motion.p
-                        className="text-[clamp(1.2rem,2.5vw,1.6rem)] text-[#8888aa] mb-14 max-w-2xl leading-relaxed font-medium"
+                        className="text-[clamp(1rem,2vw,1.6rem)] text-[#8888aa] mb-8 md:mb-14 max-w-2xl leading-relaxed font-medium"
                         initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.8 }}>
                         <TypedText words={["Cyber Security Enthusiast", "SOC Analyst", "Penetration Tester", "Future Crypto Expert"]} />
                     </motion.p>
-                    <motion.div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto mb-12" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1 }}>
-                        <a href="#contact" style={S.btnPrimary} className="hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_var(--glow)]">💬 Liên hệ ngay</a>
-                        <button onClick={() => { setTerminalOpen(true); setMenuOpen(false); }} style={S.btnOutline} className="hover:bg-white/10 active:scale-95">⌨️ Open Terminal</button>
+                    <motion.div className="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full sm:w-auto mb-12" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 1 }}>
+                        <a href="#contact" style={S.btnPrimary} className="hover:scale-105 active:scale-95 shadow-[0_20px_40px_-10px_var(--glow)] text-sm md:text-base px-6 py-4 md:px-8 md:py-4">💬 Liên hệ ngay</a>
+                        <button onClick={() => { setTerminalOpen(true); setMenuOpen(false); }} style={S.btnOutline} className="hover:bg-white/10 active:scale-95 text-sm md:text-base px-6 py-4 md:px-8 md:py-4">⌨️ Open Terminal</button>
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="flex gap-6">
@@ -307,7 +307,7 @@ export default function Home() {
 
                 <motion.div
                     className="flex-1 w-full relative"
-                    style={{ height: "clamp(400px, 50vh, 600px)", minHeight: "400px" }}
+                    style={{ height: "clamp(300px, 40vh, 600px)", minHeight: "300px" }}
                     initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: "backOut" }}
                 >
                     <Model3D theme={theme} />

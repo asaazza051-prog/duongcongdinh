@@ -19,7 +19,7 @@ export default function MusicPlayer() {
     };
 
     return (
-        <div className="fixed bottom-4 left-4 md:bottom-8 md:left-8 z-[150] flex items-center gap-3">
+        <div className="fixed bottom-6 left-6 md:bottom-8 md:left-8 z-[150] flex items-center gap-3">
             <audio ref={audioRef} src={musicUrl} loop />
             <motion.button
                 whileHover={{ scale: 1.1 }}

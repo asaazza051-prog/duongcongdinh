@@ -96,32 +96,38 @@ export default function Terminal({ isOpen, onClose, setTheme, currentTheme }) {
         <AnimatePresence>
             {isOpen && (
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.8, y: 50 }}
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.8, y: 50 }}
-                    className="fixed bottom-2 left-2 right-2 md:left-auto md:bottom-6 md:right-6 z-[200] md:w-[450px] glass-card rounded-xl overflow-hidden border border-[var(--primary)]/30 shadow-[0_0_40px_rgba(0,255,159,0.15)]"
+                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                    className="fixed inset-x-2 bottom-4 md:inset-auto md:bottom-6 md:right-6 z-[200] md:w-[500px] glass-card rounded-2xl overflow-hidden border border-[var(--primary)]/30 shadow-[0_0_60px_rgba(0,0,0,0.8)] flex flex-col"
+                    style={{ height: "clamp(350px, 60vh, 500px)" }}
                 >
-                    <div className="bg-[#0a0a20]/90 px-4 py-2 flex items-center justify-between border-b border-[var(--primary)]/20">
-                        <div className="flex gap-1.5">
-                            <div className="w-2 h-2 rounded-full bg-red-500/60" />
-                            <div className="w-2 h-2 rounded-full bg-yellow-500/60" />
-                            <div className="w-2 h-2 rounded-full bg-green-500/60" />
+                    <div className="bg-[#0a0a20] px-5 py-3 flex items-center justify-between border-b border-[var(--primary)]/20">
+                        <div className="flex gap-2">
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
                         </div>
-                        <div className="text-[9px] font-mono text-[var(--primary)]/60 tracking-[0.3em] uppercase">sh: duongdinh</div>
-                        <button onClick={onClose} className="text-white/30 hover:text-white transition-colors text-[10px] font-mono">_CLOSE</button>
+                        <div className="text-[10px] font-bold font-mono text-[var(--primary)]/80 tracking-[0.2em] uppercase hidden sm:block">sh: duongdinh — kernel 4.0</div>
+                        <button 
+                            onClick={onClose} 
+                            className="bg-white/5 hover:bg-white/10 px-3 py-1 rounded-lg text-white/70 hover:text-white transition-all text-[11px] font-bold font-mono border border-white/10"
+                        >
+                            ESC: CLOSE
+                        </button>
                     </div>
-                    <div ref={scrollRef} className="h-[280px] md:h-[300px] max-h-[50vh] overflow-y-auto p-5 font-mono text-[11px] space-y-1.5 custom-scrollbar bg-black/40">
+                    <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 font-mono text-[12px] md:text-[13px] space-y-2 custom-scrollbar bg-black/60 backdrop-blur-md">
                         {history.map((item, i) => (
-                            <div key={i} className={`whitespace-pre-wrap leading-relaxed ${item.type === "error" ? "text-red-500" :
+                            <div key={i} className={`whitespace-pre-wrap leading-relaxed ${item.type === "error" ? "text-red-400" :
                                 item.type === "success" ? "text-[var(--primary)]" :
-                                    item.type === "user" ? "text-white/80" :
+                                    item.type === "user" ? "text-white/90" :
                                         "text-[var(--secondary)]"
                                 }`}>
                                 {item.content}
                             </div>
                         ))}
-                        <div className="flex items-center gap-2 text-white">
-                            <span className="text-[var(--primary)]">$</span>
+                        <div className="flex items-center gap-2 text-white pt-2">
+                            <span className="text-[var(--primary)] font-bold">$</span>
                             <input
                                 ref={inputRef} type="text" value={input}
                                 onChange={e => setInput(e.target.value)} onKeyDown={handleCommand}
