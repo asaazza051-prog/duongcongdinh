@@ -162,7 +162,6 @@ export default function Home() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [terminalOpen, setTerminalOpen] = useState(false);
     const [theme, setTheme] = useState("");
-    const [visitorCount, setVisitorCount] = useState(0);
 
     const { scrollY } = useScroll();
     const gridY = useTransform(scrollY, [0, 5000], [0, 300]);
@@ -300,9 +299,9 @@ export default function Home() {
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }} className="flex gap-6">
-                        <a href="https://instagram.com/congdinh_04/" target="_blank" style={S.socialLink} className="hover:scale-115 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-[0_0_25px_var(--glow)]">{IcoIG}</a>
-                        <a href="https://facebook.com/duonginh.181159" target="_blank" style={S.socialLink} className="hover:scale-115 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-[0_0_25px_var(--glow)]">{IcoFB}</a>
-                        <a href="https://github.com/asaazza051-prog" target="_blank" style={S.socialLink} className="hover:scale-115 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-[0_0_25px_var(--glow)]">{IcoGH}</a>
+                        <a href="https://instagram.com/congdinh_04/" target="_blank" rel="noopener noreferrer" style={S.socialLink} className="hover:scale-115 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-[0_0_25px_var(--glow)]">{IcoIG}</a>
+                        <a href="https://facebook.com/duonginh.181159" target="_blank" rel="noopener noreferrer" style={S.socialLink} className="hover:scale-115 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-[0_0_25px_var(--glow)]">{IcoFB}</a>
+                        <a href="https://github.com/asaazza051-prog" target="_blank" rel="noopener noreferrer" style={S.socialLink} className="hover:scale-115 hover:border-[var(--primary)] hover:text-[var(--primary)] hover:shadow-[0_0_25px_var(--glow)]">{IcoGH}</a>
                     </motion.div>
                 </div>
 
@@ -329,7 +328,7 @@ export default function Home() {
                 <motion.div variants={fadeUp}><span className="inline-flex items-center gap-3 text-sm font-black uppercase tracking-[0.4em] text-[var(--secondary)] mb-6"><span style={S.labelBar} />Expertise</span></motion.div>
                 <motion.h2 variants={fadeUp} className="text-4xl md:text-8xl font-black mb-10 tracking-tighter">Tech Stack</motion.h2>
                 <motion.div variants={fadeUp} className="flex flex-wrap gap-5 mt-16">
-                    {["Cyber Security", "SOC Analyst", "Pentetration Testing", "Network Security", "Linux", "Python", "JavaScript", "Wireshark", "Burp Suite", "SIEM", "OSINT", "Malware Analysis"].map(s => <motion.span key={s} style={S.skillTag} className="glass-card hover:border-[var(--primary)] hover:scale-110 cursor-pointer">{s}</motion.span>)}
+                    {["Cyber Security", "SOC Analyst", "Penetration Testing", "Network Security", "Linux", "Python", "JavaScript", "Wireshark", "Burp Suite", "SIEM", "OSINT", "Malware Analysis"].map(s => <motion.span key={s} style={S.skillTag} className="glass-card hover:border-[var(--primary)] hover:scale-110 cursor-pointer">{s}</motion.span>)}
                 </motion.div>
             </ASection>
 
