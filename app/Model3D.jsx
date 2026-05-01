@@ -78,7 +78,7 @@ function CartoonCharacter({ theme }) {
 
 export default function Model3D({ theme }) {
     return (
-        <div className="w-full h-full relative z-20" style={{ minHeight: "400px" }}>
+        <div className="w-full h-full relative z-20 min-h-[250px] md:min-h-[400px]">
             <Canvas shadows camera={{ position: [0, 0, 6], fov: 40 }}>
                 <ambientLight intensity={0.4} />
                 <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1.5} castShadow />

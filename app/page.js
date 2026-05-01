@@ -112,7 +112,7 @@ const S = {
 /* ── Animated Section ── */
 function ASection({ children, id }) {
     const ref = useRef(null);
-    const inView = useInView(ref, { once: true, margin: "-150px" });
+    const inView = useInView(ref, { once: true, margin: "-10% 0px -10% 0px" });
     return (
         <motion.section ref={ref} id={id} className="relative z-10 max-w-7xl mx-auto pt-32 md:pt-60 px-6 md:px-8"
             initial="hidden" animate={inView ? "visible" : "hidden"}
@@ -307,7 +307,7 @@ export default function Home() {
 
                 <motion.div
                     className="flex-1 w-full relative"
-                    style={{ height: "clamp(300px, 40vh, 600px)", minHeight: "300px" }}
+                    style={{ height: "clamp(250px, 35vh, 600px)", minHeight: "250px" }}
                     initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.2, delay: 0.8, ease: "backOut" }}
                 >
                     <Model3D theme={theme} />
