@@ -186,48 +186,69 @@ export default function Home() {
     const showToast = (type, msg) => { setToast({ type, message: msg }); setTimeout(() => setToast(null), 5000); };
     const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
+    const validateForm = () => {
+        if (!form.name.trim()) return "Tên không được để trống";
+        if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) return "Email không hợp lệ";
+        if (!form.message.trim()) return "Thông điệp không được để trống";
+        if (form.name.length > 100) return "Tên quá dài (tối đa 100 ký tự)";
+        if (form.message.length > 5000) return "Thông điệp quá dài (tối đa 5000 ký tự)";
+        return null;
+    };
+
     const sendEmail = async (e) => {
         e.preventDefault();
-        setSending(true);
-        setPayloadLogs(["[INIT] Establishing secure link...", "[SCAN] Checking vulnerabilities...", "[AUTH] Identity verification..."]);
-
-        // Simulated progress logs
-        const logs = [
-            "[EXPL] Bypassing firewalls...",
-            "[PACK] Encrypting data packet...",
-            "[TRAN] Sending to endpoint...",
-            "[DONE] Handshake complete."
-        ];
-
-        for (let i = 0; i < logs.length; i++) {
-            await new Promise(r => setTimeout(r, 600));
-            setPayloadLogs(prev => [...prev, logs[i]]);
-        }
-
-        const svcId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-        const tplId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-        const pubKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-        if (!svcId || !tplId || !pubKey) {
-            showToast("error", "❌ Lỗi: Thiếu API key. Kiểm tra biến môi trường!");
-            setSending(false); setPayloadLogs([]);
+        
+        // Client-side validation
+        const errorMsg = validateForm();
+        if (errorMsg) {
+            showToast("error", `❌ ${errorMsg}`);
             return;
         }
 
+        setSending(true);
+        setPayloadLogs(["[INIT] Establishing secure link...", "[SCAN] Checking vulnerabilities..."]);
+
         try {
+            // 1. Call Internal API for strict validation
+            const valRes = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(form)
+            });
+
+            const valData = await valRes.json();
+            if (!valRes.ok) {
+                throw new Error(valData.error || "Dữ liệu không hợp lệ");
+            }
+
+            setPayloadLogs(prev => [...prev, "[AUTH] Identity verified.", "[PACK] Encrypting data packet..."]);
+            await new Promise(r => setTimeout(r, 400));
+
+            // 2. Send via EmailJS
+            const svcId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+            const tplId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+            const pubKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+            if (!svcId || !tplId || !pubKey) {
+                throw new Error("Thiếu API key. Kiểm tra biến môi trường!");
+            }
+
             await emailjs.send(
                 svcId, tplId,
                 { from_name: form.name, from_email: form.email, message: form.message, to_name: "Dương Định" },
                 pubKey
             );
+
+            setPayloadLogs(prev => [...prev, "[TRAN] Sending to endpoint...", "[DONE] Handshake complete."]);
             showToast("success", "✅ Payload delivered successfully!");
             setForm({ name: "", email: "", message: "" });
         } catch (err) {
-            console.error("EmailJS Error:", err);
-            const msg = err?.text || err?.message || JSON.stringify(err);
-            showToast("error", `❌ Lỗi: ${msg}`);
+            console.error("Contact Error:", err);
+            showToast("error", `❌ Lỗi: ${err.message}`);
+        } finally {
+            setSending(false);
+            setTimeout(() => setPayloadLogs([]), 2000);
         }
-        finally { setSending(false); setPayloadLogs([]); }
     };
 
     const navLinks = [{ l: "About", h: "#about" }, { l: "Skills", h: "#skills" }, { l: "Hobbies", h: "#hobbies" }, { l: "Contact", h: "#contact" }];
