@@ -59,6 +59,13 @@ const CERTS = [
     date: "11 May 2026",
     img: "/certs/cert8.png",
   },
+  {
+    id: 9,
+    name: "Certified Cybersecurity Educator Professional (CCEP)",
+    issuer: "Red Team Leaders",
+    date: "10 May 2026",
+    img: "/certs/cert9.png",
+  },
 ];
 
 export default function Certificates({ isOpen, onClose }) {
