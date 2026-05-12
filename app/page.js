@@ -5,6 +5,7 @@ import emailjs from "@emailjs/browser";
 import Model3D from "./Model3D";
 import Terminal from "./Terminal";
 import MusicPlayer from "./MusicPlayer";
+import Certificates from "./Certificates";
 
 /* ── Styles ── */
 const S = {
@@ -161,6 +162,7 @@ export default function Home() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [terminalOpen, setTerminalOpen] = useState(false);
+    const [certsOpen, setCertsOpen] = useState(false);
     const [theme, setTheme] = useState("");
 
     const { scrollY } = useScroll();
@@ -269,7 +271,13 @@ export default function Home() {
 
                 <div className="hidden md:flex gap-10 items-center">
                     {navLinks.map(n => <a key={n.h} href={n.h} style={S.navLink} className="hover:text-[var(--primary)] hover:translate-y-[-2px] transition-all">{n.l}</a>)}
-                    <button onClick={() => setTheme(theme === "blood" ? "" : "blood")} className={`ml-4 px-4 py-2 rounded-xl border text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-300 ${theme === "blood" ? "border-red-500 text-red-500 bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)]" : "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/5 hover:bg-[var(--primary)]/10"}`}>
+                    <button
+                        onClick={() => setCertsOpen(true)}
+                        className="px-4 py-2 rounded-xl border text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-300 border-yellow-400/60 text-yellow-300 bg-yellow-400/8 hover:bg-yellow-400/15 hover:shadow-[0_0_20px_rgba(250,204,21,0.25)]"
+                    >
+                        🏆 Certs
+                    </button>
+                    <button onClick={() => setTheme(theme === "blood" ? "" : "blood")} className={`ml-2 px-4 py-2 rounded-xl border text-[11px] font-black tracking-[0.2em] uppercase transition-all duration-300 ${theme === "blood" ? "border-red-500 text-red-500 bg-red-500/10 shadow-[0_0_20px_rgba(239,68,68,0.4)]" : "border-[var(--primary)] text-[var(--primary)] bg-[var(--primary)]/5 hover:bg-[var(--primary)]/10"}`}>
                         {theme === "blood" ? "Insecure" : "Secure"}
                     </button>
                 </div>
@@ -294,6 +302,13 @@ export default function Home() {
                                 {n.l}
                             </motion.a>
                         ))}
+                        <motion.button
+                            initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: navLinks.length * 0.1 }}
+                            onClick={() => { setCertsOpen(true); setMenuOpen(false); }}
+                            className="text-4xl font-black text-yellow-300 tracking-tight bg-transparent border-none cursor-pointer"
+                        >
+                            🏆 Certs
+                        </motion.button>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -422,6 +437,9 @@ export default function Home() {
 
             <Terminal isOpen={terminalOpen} onClose={() => setTerminalOpen(false)} setTheme={setTheme} currentTheme={theme} />
             <MusicPlayer />
+            <AnimatePresence>
+                {certsOpen && <Certificates isOpen={certsOpen} onClose={() => setCertsOpen(false)} />}
+            </AnimatePresence>
 
             <AnimatePresence>
                 {toast && (
